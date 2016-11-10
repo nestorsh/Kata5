@@ -1,5 +1,5 @@
 package moneycalculator.ui;
 
-public class MoneyDisplay {
+public interface MoneyDisplay {
 
 }
