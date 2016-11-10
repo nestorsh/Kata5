@@ -43,7 +43,7 @@ public class MainFrame extends JFrame{
             
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println("New Excchange");
+                System.out.println("New Exchange");
             }
         };
     }
