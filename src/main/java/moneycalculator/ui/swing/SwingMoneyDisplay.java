@@ -14,11 +14,11 @@ public class SwingMoneyDisplay extends JPanel implements MoneyDisplay{
         add(currency());
     }
 
-    private JLabel amount() {
+    private JLabel currency() {
         return new JLabel("$");
     }
-
-    private JLabel currency() {
+    
+    private JLabel amount() {
         return new JLabel("500");
     }
 }
