@@ -2,7 +2,6 @@ package moneycalculator.ui.swing;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.PopupMenu;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import moneycalculator.model.Money;
