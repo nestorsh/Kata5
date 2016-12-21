@@ -1,78 +1,66 @@
 package moneycalculator;
 
-import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Menu;
-import java.awt.MenuBar;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import moneycalculator.model.Currency;
+import moneycalculator.ui.MoneyDialog;
+import moneycalculator.ui.MoneyDisplay;
+import moneycalculator.ui.swing.SwingMoneyDialog;
 import moneycalculator.ui.swing.SwingMoneyDisplay;
 
 public class MainFrame extends JFrame{
+    private Currency[] currencies;
+    private MoneyDialog moneyDialog;
+    private MoneyDisplay moneyDisplay;
     
-    private int index=0;
-    
-    public MainFrame(){
+    public MainFrame(Currency[] currencies){
+        this.currencies=currencies;
         setTitle("Money Calculator");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 400);
         setMinimumSize(new Dimension(400, 400));
         setLocationRelativeTo(null);
-        this.setMenuBar(menuBar());
-        add(label(), BorderLayout.NORTH);
-        add(label(), BorderLayout.SOUTH);
-        add(label(), BorderLayout.WEST);
-        add(label(), BorderLayout.EAST);
+        setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS)); 
+        add(moneyDialog());
         add(moneyDisplay());
+        add(calculateButton());
         setVisible(true);
     }
 
-    private MenuBar menuBar() {
-       MenuBar menuBar=new MenuBar();
-       menuBar.add(calculate());
-       return menuBar;
+    private Component moneyDialog() {
+        SwingMoneyDialog dialog=new SwingMoneyDialog(currencies);
+        this.moneyDialog=dialog;
+        return dialog;
+    }
+    
+    private Component moneyDisplay(){
+        SwingMoneyDisplay display=new SwingMoneyDisplay();
+        this.moneyDisplay=display;
+        return display;
     }
 
-    private Menu calculate() {
-        Menu menu = new Menu("Calculate");
-        menu.add(newExchange());
-        return menu;
-    }
-
-    private MenuItem newExchange() {
-        MenuItem menuItem = new MenuItem("New");
-        menuItem.addActionListener(doNewExchange());
-        return menuItem;
-    }
-
-    private ActionListener doNewExchange() {
-        return new ActionListener(){
-            
-            @Override
-            public void actionPerformed(ActionEvent e){
-                System.out.println("New Exchange");
-            }
-        };
-    }
-
-    private JPanel label() {
-        JPanel panel=new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        panel.add(new JLabel("A"+index++));
+    private Component calculateButton(){
+        JPanel panel=new JPanel(new FlowLayout());
+        JButton button=new JButton("Exchange");
+        button.addActionListener(exchange());
+        panel.add(button);
         return panel;
     }
 
-    private JPanel moneyDisplay() {
-       SwingMoneyDisplay swingMoneyDisplay=new SwingMoneyDisplay();
-       return swingMoneyDisplay;
-    }
-
-   
-       
+    private ActionListener exchange() {
+        return new ActionListener(){
+           
+            @Override
+            public void actionPerformed(ActionEvent e){
+                moneyDisplay.display(moneyDialog.get());
+            }
+        };
+    }   
 }
