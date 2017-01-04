@@ -35,11 +35,8 @@ public class MainFrame extends JFrame{
         this.setLocationRelativeTo(null);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS)); 
         this.add(moneyDialog(),BorderLayout.NORTH);
-        //this.add(moneyDialog());
         this.add(moneyDisplay(), BorderLayout.CENTER);
-        //this.add(moneyDisplay());
         this.add(toolbar(), BorderLayout.SOUTH);
-        //this.add(calculateButton());
         this.setVisible(true);
     }
     
@@ -68,11 +65,6 @@ public class MainFrame extends JFrame{
     }
 
     private Component calculateButton(){
-        /*JPanel panel=new JPanel(new FlowLayout());
-        JButton button=new JButton("Exchange");
-        button.addActionListener(exchange());
-        panel.add(button);
-        return panel;*/
         JButton button=new JButton("Calculate");
         button.addActionListener(calculate());
         return button;
@@ -83,8 +75,7 @@ public class MainFrame extends JFrame{
            
             @Override
             public void actionPerformed(ActionEvent e){
-                //moneyDisplay.display(moneyDialog.get());
-                commands.get("Calculate").execute();
+                commands.get("calculate").execute();
             }
         };
     }   

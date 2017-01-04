@@ -4,8 +4,6 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -46,8 +44,6 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog{
 
     private Component currency() {
         JComboBox combo=new JComboBox(currencies);
-    /*    currency=currencies[0];
-        combo.addItemListener(currencyListener());*/
         combo.addItemListener(currencyChanged());
         currency=(Currency)combo.getSelectedItem();
         return combo;
@@ -89,9 +85,9 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog{
             
           @Override
           public void itemStateChanged(ItemEvent e){
-              if(e.getStateChange()==ItemEvent.SELECTED){
-                  currency=(Currency)e.getItem();
-              }
+              if(e.getStateChange()==ItemEvent.DESELECTED) return;
+              currency=(Currency)e.getItem();
+              
           }
         };
     }  
